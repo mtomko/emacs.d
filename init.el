@@ -1,21 +1,22 @@
 ;;----------------------------------------------------------------------------
 ;; Mark Tomko's Emacs Initialization File
+;;
+;; Borrows ideas & config from
+;;   https://github.com/purcell/emacs.d
+;;   https://github.com/technomancy/emacs-starter-kit
+;;
 ;; 2016-10-18
 ;;----------------------------------------------------------------------------
+
+;;----------------------------------------------------------------------------
+;; Bootstrapping
+;;----------------------------------------------------------------------------
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;;----------------------------------------------------------------------------
 ;; Top-level definitions
 ;;----------------------------------------------------------------------------
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
-(defconst *is-a-mac* (eq system-type 'darwin))
-
-(if (fboundp 'with-eval-after-load)
-    (defalias 'after-load 'with-eval-after-load)
-  (defmacro after-load (feature &rest body)
-    "After FEATURE is loaded, evaluate BODY."
-    (declare (indent defun))
-    `(eval-after-load ,feature
-       '(progn ,@body))))
 
 ;;----------------------------------------------------------------------------
 ;; Temporarily reduce garbage collection during startup
@@ -27,39 +28,16 @@
           (lambda () (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
 
 ;;----------------------------------------------------------------------------
-;; OS X keybindings
+;; Load configuration utilities
 ;;----------------------------------------------------------------------------
-(when *is-a-mac*
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier 'none)
-  (setq-default default-input-method "MacOSX")
-  ;; Make mouse wheel / trackpad scrolling less jerky
-  (setq mouse-wheel-scroll-amount '(1
-                                    ((shift) . 5)
-                                    ((control))))
-  (dolist (multiple '("" "double-" "triple-"))
-    (dolist (direction '("right" "left"))
-      (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore)))
-  (global-set-key (kbd "M-`") 'ns-next-frame)
-  (global-set-key (kbd "M-h") 'ns-do-hide-emacs)
-  (global-set-key (kbd "M-˙") 'ns-do-hide-others)
-  (after-load 'nxml-mode
-              (define-key nxml-mode-map (kbd "M-h") nil))
-  (global-set-key (kbd "M-ˍ") 'ns-do-hide-others) ;; what describe-key reports for cmd-option-h
-  )
+(require 'init-utils)
 
 ;;----------------------------------------------------------------------------
 ;; Package initialization
 ;;----------------------------------------------------------------------------
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "https://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(require 'init-package-system)
 
-(defvar required-packages '(afternoon-theme
+(defvar required-packages '(;afternoon-theme
                             anzu
                             avy
                             auto-compile
@@ -68,8 +46,9 @@
                             coffee-mode
                             company-quickhelp
                             crontab-mode
-                            ;csv-mode
-                            ;css-nav
+                            css-eldoc
+                            csv-mode
+                            csv-nav
                             default-text-scale
                             diff-hl
                             diminish
@@ -84,11 +63,14 @@
                             expand-region
                             fill-column-indicator
                             find-file-in-project
+                            flycheck
+                            flycheck-clojure
                             guide-key
+                            highlight-symbol
                             hl-sexp
                             idle-highlight-mode
                             ido-ubiquitous
-                            ;ido-menu
+                            idomenu
                             immortal-scratch
                             indent-guide
                             ipretty
@@ -97,12 +79,13 @@
                             lively
                             magit
                             markdown-mode
-                            merlin
                             mmm-mode
                             nlinum
+                            osx-location
                             paredit
                             paredit-everywhere
                             php-mode
+                            project-local-variables
                             rainbow-delimiters
                             rainbow-mode
                             scala-mode
@@ -110,10 +93,9 @@
                             scpaste
                             session
                             slime-company
-                            smex
                             tagedit
-                            tuareg
                             undo-tree
+                            whitespace-cleanup-mode
                             ))
 
 (package-initialize)
@@ -122,14 +104,8 @@
     (package-install p)))
 
 ;;----------------------------------------------------------------------------
-;; User interface settings
+;; Custom set variables (do not touch below codes)
 ;;----------------------------------------------------------------------------
-(setq visible-bell nil)
-
-;; use a larger window by default when Emacs is run in its own window
-(if (window-system)
-    (set-frame-size (selected-frame) 120 48))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -140,7 +116,7 @@
     ("28ec8ccf6190f6a73812df9bc91df54ce1d6132f18b4c8fcc85d45298569eb53" default)))
  '(package-selected-packages
    (quote
-    (afternoon-theme ido-ubiquitous idle-highlight-mode find-file-in-project csv-mode better-defaults))))
+    (undo-tree tuareg tagedit smex slime-company session scpaste scratch rainbow-mode rainbow-delimiters php-mode paredit-everywhere paredit nlinum mmm-mode merlin markdown-mode magit lively ledger-mode json-mode ipretty indent-guide immortal-scratch hl-sexp guide-key fill-column-indicator expand-region exec-path-from-shell ensime elm-mode elisp-slime-nav elein disable-mouse dired-sort dired+ diminish diff-hl default-text-scale crontab-mode company-quickhelp coffee-mode browse-kill-ring auto-compile avy anzu idomenu afternoon-theme ido-ubiquitous idle-highlight-mode find-file-in-project csv-mode better-defaults))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -148,6 +124,25 @@
  ;; If there is more than one, they won't work right.
  )
 
+;;----------------------------------------------------------------------------
+;; User interface settings
+;;----------------------------------------------------------------------------
+(require 'init-keys)
+(require 'init-ido)
+(require 'init-smex)
+(require 'init-ui)
+
 ;; Set theme after custem-safe-themes is defined
 ;; http://stackoverflow.com/a/8547861
-(load-theme 'afternoon)
+(require 'init-theme)
+
+;;----------------------------------------------------------------------------
+;; Other settings
+;;----------------------------------------------------------------------------
+(require 'init-exec-path)
+
+;;----------------------------------------------------------------------------
+;; Language-specific settings
+;;----------------------------------------------------------------------------
+(require 'init-ocaml)
+
