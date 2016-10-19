@@ -1,8 +1,14 @@
-# Compiled
-*.elc
 
+# Compiled
 # Packaging
+*.elc
 .cask
 abbrev_defs
+auto-save-list/
 backups/
 elpa/
+ensime/
+network-security.data
+recentf
+smex-items
+tramp
