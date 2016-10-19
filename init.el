@@ -11,6 +11,13 @@
 ;;----------------------------------------------------------------------------
 ;; Bootstrapping
 ;;----------------------------------------------------------------------------
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;;----------------------------------------------------------------------------
@@ -36,67 +43,7 @@
 ;; Package initialization
 ;;----------------------------------------------------------------------------
 (require 'init-package-system)
-
-;; (defvar required-packages '(anzu
-;;                             avy
-;;                             auto-compile
-;;                             better-defaults
-;;                             browse-kill-ring
-;;                             coffee-mode
-;;                             company-quickhelp
-;;                             crontab-mode
-;;                             css-eldoc
-;;                             default-text-scale
-;;                             diff-hl
-;;                             diminish
-;;                             dired+
-;;                             dired-sort
-;;                             disable-mouse
-;;                             elein
-;;                             elisp-slime-nav
-;;                             elm-mode
-;;                             ensime
-;;                             fill-column-indicator
-;;                             find-file-in-project
-;;                             flycheck
-;;                             flycheck-clojure
-;;                             guide-key
-;;                             highlight-symbol
-;;                             hl-sexp
-;;                             idle-highlight-mode
-;;                             ido-ubiquitous
-;;                             idomenu
-;;                             immortal-scratch
-;;                             indent-guide
-;;                             ipretty
-;;                             json-mode
-;;                             ledger-mode
-;;                             lively
-;;                             magit
-;;                             markdown-mode
-;;                             mmm-mode
-;;                             nlinum
-;;                             osx-location
-;;                             paredit
-;;                             paredit-everywhere
-;;                             php-mode
-;;                             project-local-variables
-;;                             rainbow-delimiters
-;;                             rainbow-mode
-;;                             scala-mode
-;;                             scratch
-;;                             scpaste
-;;                             session
-;;                             slime-company
-;;                             tagedit
-;;                             undo-tree
-;;                             whitespace-cleanup-mode
-;;                             ))
-
-;; (package-initialize)
-;; (dolist (p required-packages)
-;;   (when (not (package-installed-p p))
-;;     (package-install p)))
+(require 'init-basic-packages)
 
 ;;----------------------------------------------------------------------------
 ;; Custom set variables (do not touch below codes)
@@ -108,7 +55,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("28ec8ccf6190f6a73812df9bc91df54ce1d6132f18b4c8fcc85d45298569eb53" default))))
+    ("28ec8ccf6190f6a73812df9bc91df54ce1d6132f18b4c8fcc85d45298569eb53" default)))
+ '(package-selected-packages
+   (quote
+    (flycheck-clojure cider use-package tuareg smex php-mode flycheck-ocaml expand-region exec-path-from-shell ensime elein csv-nav csv-mode clojure-mode afternoon-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -138,6 +88,7 @@
 ;; Language-specific settings
 ;;----------------------------------------------------------------------------
 (require 'init-clojure)
+(require 'init-clojure-cider)
 (require 'init-csv)
 (require 'init-ocaml)
 (require 'init-php)
