@@ -58,7 +58,7 @@
     ("28ec8ccf6190f6a73812df9bc91df54ce1d6132f18b4c8fcc85d45298569eb53" default)))
  '(package-selected-packages
    (quote
-    (flycheck-clojure cider use-package tuareg smex php-mode flycheck-ocaml expand-region exec-path-from-shell ensime elein csv-nav csv-mode clojure-mode afternoon-theme))))
+    (diff-hl psvn flycheck-clojure cider use-package tuareg smex php-mode flycheck-ocaml expand-region exec-path-from-shell ensime elein csv-nav csv-mode clojure-mode afternoon-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

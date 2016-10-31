@@ -1,6 +1,8 @@
-(use-package unfill :demand)
-(use-package rainbow-mode :demand)
-(use-package rainbow-delimiters :demand)
+(use-package unfill :ensure t)
+(use-package rainbow-mode :ensure t)
+(use-package rainbow-delimiters :ensure t)
+(use-package paredit :ensure t)
+(use-package paredit-everywhere :ensure tXS)
 
 (setq-default
  blink-cursor-interval 0.4
@@ -18,6 +20,8 @@
 
 (show-paren-mode 1)
 
-(use-package expand-region :demand)
+(use-package expand-region :ensure t)
+
+(add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
 
 (provide 'init-editing-utils)
