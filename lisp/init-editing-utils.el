@@ -2,7 +2,7 @@
 (use-package rainbow-mode :ensure t)
 (use-package rainbow-delimiters :ensure t)
 (use-package paredit :ensure t)
-(use-package paredit-everywhere :ensure tXS)
+(use-package paredit-everywhere :ensure t)
 
 (setq-default
  blink-cursor-interval 0.4

@@ -15,8 +15,7 @@
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
+;(package-initialize)
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
@@ -58,7 +57,10 @@
     ("28ec8ccf6190f6a73812df9bc91df54ce1d6132f18b4c8fcc85d45298569eb53" default)))
  '(package-selected-packages
    (quote
-    (diff-hl psvn flycheck-clojure cider use-package tuareg smex php-mode flycheck-ocaml expand-region exec-path-from-shell ensime elein csv-nav csv-mode clojure-mode afternoon-theme))))
+    (prettfiy-symbols smartparens pretty-symbols flymd gh-md markdown-mode ensime sbt-mode scala-mode cargo flycheck-rust flymake-rust rust-mode flycheck-purescript psc-ide psci purescript-mode mmm-mode psvn flycheck-clojure cider tuareg smex php-mode flycheck-ocaml expand-region exec-path-from-shell elein csv-nav csv-mode clojure-mode afternoon-theme)))
+ '(purescript-mode-hook
+   (quote
+    (capitalized-words-mode turn-on-eldoc-mode turn-on-purescript-indent turn-on-purescript-indentation turn-on-purescript-simple-indent turn-on-purescript-unicode-input-method))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

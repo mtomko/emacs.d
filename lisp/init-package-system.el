@@ -7,7 +7,8 @@
                          ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 (package-initialize)
-(when (not package-archive-contents)
+
+(unless package-archive-contents
   (package-refresh-contents)
   (package-install 'use-package))
 

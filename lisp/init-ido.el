@@ -8,7 +8,7 @@
 (setq-default org-completion-use-ido t)
 (setq-default magit-completing-read-function 'magit-ido-completing-read)
 
-(use-package ido-ubiquitous
+(use-package ido-completing-read+
   :demand)
 
 (use-package idomenu
