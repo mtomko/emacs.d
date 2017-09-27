@@ -5,14 +5,17 @@
   (setq comment-start "/* "
         comment-end " */"
         comment-style 'multi-line
-        comment-empty-lines t))
+        comment-empty-lines t)
+  ;(setq prettify-symbols-alist scala-prettify-symbols-alist)
+  ;(prettify-symbols-mode)
+  )
 
 (use-package sbt-mode
   :pin melpa)
 
 (use-package ensime
   :ensure t
-  :pin melpa)
+  :pin melpa-stable)
 
 (use-package smartparens
   :diminish smartparens-mode
@@ -38,6 +41,13 @@
   (bind-key "s-<delete>" 'sp-kill-sexp smartparens-mode-map)
   (bind-key "s-<backspace>" 'sp-backward-kill-sexp smartparens-mode-map))
 
-(use-package prettfiy-symbols :ensure t)
+;(use-package prettify-symbols :ensure t)
+
+;; disable startup notifications
+(setq ensime-startup-snapshot-notification 'nil)
+(setq ensime-startup-notification 'nil)
+
+(setq scala-indent:default-run-on-strategy 'eager)
+(setq scala-indent:align-parameters t)
 
 (provide 'init-scala)

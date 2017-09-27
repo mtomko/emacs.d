@@ -1,6 +1,6 @@
-(use-package afternoon-theme
+(use-package yoshi-theme
   :demand)
 
-(load-theme 'afternoon)
+(load-theme 'yoshi t)
 
 (provide 'init-theme)
