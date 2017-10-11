@@ -1,5 +1,10 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
+(defun load-packages (package-list)
+  (dolist (package package-list)
+    (unless (package-installed-p package)
+      (package-install package))))
+
 (if (fboundp 'with-eval-after-load)
     (defalias 'after-load 'with-eval-after-load)
   (defmacro after-load (feature &rest body)

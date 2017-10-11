@@ -9,11 +9,16 @@
 (package-initialize)
 
 (unless package-archive-contents
-  (package-refresh-contents)
-  (package-install 'use-package))
+  (package-refresh-contents))
+  
+(load-packages '(use-package diminish bind-key))
 
-(require 'use-package)
-
+;; from now on, use-package is responsible for downloading packages
 (setq use-package-always-ensure t)
+
+;; Wire use-package https://github.com/jwiegley/use-package
+(eval-when-compile (require 'use-package))
+(require 'diminish)                ;; if you use :diminish
+(require 'bind-key)                ;; if you use any :bind variant
 
 (provide 'init-package-system)
