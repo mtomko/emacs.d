@@ -52,6 +52,13 @@
           (lambda () (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
 
 ;;----------------------------------------------------------------------------
+;; Set the location of the custom file
+;;----------------------------------------------------------------------------
+(setq custom-file "~/.emacs.d/custom.el")
+(write-region "" "" custom-file t)
+(load custom-file)
+
+;;----------------------------------------------------------------------------
 ;; Load configuration utilities
 ;;----------------------------------------------------------------------------
 (require 'init-utils)
@@ -65,6 +72,9 @@
 ;;----------------------------------------------------------------------------
 ;; User interface settings
 ;;----------------------------------------------------------------------------
+;; Set theme after custem-safe-themes is defined
+;; http://stackoverflow.com/a/8547861
+(require 'init-theme)
 (require 'init-keys)
 (require 'init-ido)
 (require 'init-ui)
@@ -84,34 +94,6 @@
 (require 'init-ocaml)
 (require 'init-php)
 (require 'init-scala)
-
-;;----------------------------------------------------------------------------
-;; Custom set variables (do not touch below codes)
-;;----------------------------------------------------------------------------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("6c7db7fdf356cf6bde4236248b17b129624d397a8e662cf1264e41dab87a4a9a" "28ec8ccf6190f6a73812df9bc91df54ce1d6132f18b4c8fcc85d45298569eb53" default)))
- '(package-selected-packages
-   (quote
-    (yoshi-theme prettify-symbols prettfiy-symbols smartparens pretty-symbols flymd gh-md markdown-mode sbt-mode scala-mode cargo flycheck-rust flymake-rust rust-mode flycheck-purescript psc-ide psci purescript-mode mmm-mode psvn flycheck-clojure cider tuareg smex php-mode flycheck-ocaml expand-region exec-path-from-shell elein csv-nav csv-mode clojure-mode afternoon-theme)))
- '(purescript-mode-hook
-   (quote
-    (capitalized-words-mode turn-on-eldoc-mode turn-on-purescript-indent turn-on-purescript-indentation turn-on-purescript-simple-indent turn-on-purescript-unicode-input-method))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;; Set theme after custem-safe-themes is defined
-;; http://stackoverflow.com/a/8547861
-(require 'init-theme)
 
 ;; Start the server
 (server-start)

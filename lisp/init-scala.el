@@ -23,4 +23,7 @@
 (setq scala-indent:default-run-on-strategy 'eager)
 (setq scala-indent:align-parameters t)
 
+;; maybe doesn't work, not currently necessary
+;;(setenv "JAVA_HOME" (shell-command-to-string "/usr/libexec/java_home -v1.8"))
+
 (provide 'init-scala)

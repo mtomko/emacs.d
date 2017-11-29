@@ -78,6 +78,8 @@
 ;;  :config (neotree)
 ;;  :bind ("s-d" . neotree-toggle))
 
+(use-package diff-hl)
+
 (use-package magit
   :diminish magit-status
   :commands magit-status
@@ -99,7 +101,7 @@
   :commands find-file-in-repository
   :bind ("M-s M-f" . find-file-in-repository))
 
-(use-package psvn)
+;;(use-package psvn)
 
 (use-package window-numbering
   :init (window-numbering-mode 1))
