@@ -8,7 +8,7 @@
 
 (when *is-a-mac*
   (use-package dired
-    :ensure nil
+    :ensure t
     :config
     (progn
       ;; set up the correct ls

@@ -94,6 +94,7 @@
 (require 'init-ocaml)
 (require 'init-php)
 (require 'init-scala)
+(require 'init-haskell)
 
 ;; Start the server
 (server-start)
