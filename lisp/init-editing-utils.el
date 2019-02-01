@@ -8,7 +8,7 @@
 
 (when *is-a-mac*
   ;; set up the correct ls
-  (setq insert-directory-program "/usr/local/opt/coreutils/libexec/gnubin/ls")
+  (setq insert-directory-program "/Users/mtomko/.nix-profile/bin/ls")
   (setq dired-listing-switches "-lXh --group-directories-first")
 
   ;; these stolen from tmgreen
@@ -80,6 +80,7 @@
   :diminish magit-status
   :commands magit-status
   :config (setq magit-last-seen-setup-instructions "1.4.0")
+          (setq magit-git-executable "/usr/bin/git")
   :bind ("M-s M-g" . magit-status))
 
 (use-package gist
