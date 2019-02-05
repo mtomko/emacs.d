@@ -1,9 +1,12 @@
 (use-package unfill)
 
-(use-package rainbow-mode)
+(use-package rainbow-mode
+  :pin gnu)
+
 (use-package rainbow-delimiters)
 
 (use-package paredit)
+
 (use-package paredit-everywhere)
 
 (when *is-a-mac*
@@ -35,6 +38,7 @@
 ;; project interaction
 (use-package projectile
   :demand
+  :pin melpa-stable
   :init   (setq projectile-use-git-grep t)
   :config (projectile-global-mode t)
   :bind   (("s-f" . projectile-find-file)
@@ -42,6 +46,7 @@
 
 ;; recover any past state of a buffer
 (use-package undo-tree
+  :pin gnu
   :diminish undo-tree-mode
   :config (global-undo-tree-mode)
   :bind ("s-/" . undo-tree-visualize))
@@ -91,14 +96,13 @@
 
 (use-package gitconfig-mode)
 
+
 (use-package gitignore-mode)
 
 (use-package find-file-in-repository
   :diminish find-file-in-repository
   :commands find-file-in-repository
   :bind ("M-s M-f" . find-file-in-repository))
-
-;;(use-package psvn)
 
 (use-package window-numbering
   :init (window-numbering-mode 1))

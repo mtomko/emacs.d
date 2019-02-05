@@ -1,5 +1,10 @@
-(use-package csv-mode :demand)
-(use-package csv-nav :demand)
+(use-package csv-mode
+  :demand
+  :pin gnu)
+
+;(use-package csv-nav
+;  :demand
+;  :pin gnu)
 
 (add-auto-mode 'csv-mode "\\.[Cc][Ss][Vv]\\'")
 

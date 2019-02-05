@@ -1,6 +1,7 @@
 (use-package clojure-mode)
 
-(use-package elein)
+(use-package elein
+  :pin melpa)
 
 (use-package cider)
 
