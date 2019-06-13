@@ -8,8 +8,12 @@
 ; (setq prettify-symbols-alist scala-prettify-symbols-alist)
   (prettify-symbols-mode))
 
+
+;; Enable scala-mode and sbt-mode
+(use-package scala-mode
+  :mode "\\.s\\(cala\\|bt\\)$")
+
 (use-package sbt-mode
-  :ensure t
   :commands sbt-start sbt-command
   :config
   ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
@@ -19,26 +23,23 @@
    'self-insert-command
    minibuffer-local-completion-map))
 
+;; Enable nice rendering of diagnostics like compile errors.
 (use-package flycheck
-  :ensure t
   :init (global-flycheck-mode))
 
 (use-package lsp-mode
-  :ensure t)
+  :pin melpa
+  ;; Optional - enable lsp-mode automatically in scala files
+  :hook (scala-mode . lsp)
+  :config (setq lsp-prefer-flymake nil))
 
-(use-package lsp-ui
-  :ensure t
-  :hook (lsp-mode . lsp-ui-mode))
+(use-package lsp-ui)
 
-(use-package lsp-scala
+;; Add company-lsp backend for metals
+(use-package company-lsp
   :pin melpa
   :ensure t
-  :after scala-mode
-  :demand t
-  :hook (scala-mode . lsp)
-  :init (setq lsp-scala-server-command "/usr/local/bin/metals-emacs"))
-
-;(use-package prettify-symbols :ensure t)
+  :init (setq company-minimum-prefix-length 0 company-idle-delay 0.0))
 
 ;(setq scala-indent:default-run-on-strategy 'eager)
 ;(setq scala-indent:align-parameters t)

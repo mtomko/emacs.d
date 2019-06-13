@@ -22,8 +22,8 @@
 (load-packages '(use-package diminish bind-key))
 
 ;; from now on, use-package is responsible for downloading packages
+(setq use-package-always-defer t)
 (setq use-package-always-ensure t)
-
 (setq use-package-always-pin "melpa-stable")
 
 ;; Wire use-package https://github.com/jwiegley/use-package
