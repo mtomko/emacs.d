@@ -14,22 +14,24 @@
   (setq insert-directory-program "/Users/mtomko/.nix-profile/bin/ls")
   (setq dired-listing-switches "-lXh --group-directories-first")
 
-  ;; these stolen from tmgreen
-  ;; use quicklooks
-  (define-key dired-mode-map (kbd "<SPC>")
-    (lambda () (interactive)
-      (let ((lawlist-filename (dired-get-file-for-visit)))
-        (start-process "quick-look" nil "qlmanage" "-p" lawlist-filename))))
+  (eval-after-load "dired"
+    '(progn
+      ;; these stolen from tmgreen
+      ;; use quicklooks
+      (define-key dired-mode-map (kbd "<SPC>")
+	(lambda () (interactive)
+	  (let ((lawlist-filename (dired-get-file-for-visit)))
+            (start-process "quick-look" nil "qlmanage" "-p" lawlist-filename))))
 
-  (define-key dired-mode-map (kbd "o")
-    (lambda () (interactive)
-      (let ((lawlist-filename (dired-get-file-for-visit)))
-        (if (or (equal (file-name-extension lawlist-filename) "tsv")
-                (equal (file-name-extension lawlist-filename) "txt"))
-            (start-process "default-app" nil "open" "-a" "Numbers" lawlist-filename)
-          (start-process "default-app" nil "open" lawlist-filename)))))
-
-  (define-key dired-mode-map "V" 'magit-status))
+      (define-key dired-mode-map (kbd "o")
+	(lambda () (interactive)
+	  (let ((lawlist-filename (dired-get-file-for-visit)))
+            (if (or (equal (file-name-extension lawlist-filename) "tsv")
+                    (equal (file-name-extension lawlist-filename) "txt"))
+		(start-process "default-app" nil "open" "-a" "Numbers" lawlist-filename)
+              (start-process "default-app" nil "open" lawlist-filename)))))
+      
+      (define-key dired-mode-map (kbd "V") 'magit-status))))
 
 ;;----------------------------------------------------------------------------
 ;; Require some packages that do take configuration
